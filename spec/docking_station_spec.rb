@@ -1,4 +1,5 @@
 require 'docking_station'
+require 'bike'
 
 describe DockingStation do
   subject(:docking_station) {DockingStation.new}
@@ -9,8 +10,11 @@ describe DockingStation do
   it { should respond_to(:release_bike) }
 
   it 'release_bike gets a bike from the docking station' do
-    bike = Bike.new
-    expect(docking_station.release_bike).to eq(bike)
+    expect(docking_station.release_bike).to be_instance_of(Bike)
   end
 
+  it 'releases working bikes' do
+    bike = subject.release_bike 
+    expect(bike).to be_working
+  end
 end
